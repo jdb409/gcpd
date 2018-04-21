@@ -11,10 +11,12 @@ const getRecords = (records) => {
 
 
 export const getRecordsFromServer = (id) => {
+    console.log('hello', id);
     return (dispatch) => {
         axios.get(`/api/matchinfo/${id}`)
             .then(res => res.data)
             .then(records => {
+                console.log(records);
                 dispatch(getRecords(records))
             })
     }
@@ -24,7 +26,7 @@ export const postRecord = (record, userId) => {
     record.userId = userId;
     console.log('postRecord', userId);
     return () => {
-        axios.post(`/api/matchinfo/1`, record)
+        axios.post(`/api/matchinfo/${userId}`, record)
             .then(res => res.data)
             .then(() => {
                 console.log('hello');
@@ -36,7 +38,7 @@ export const postRecord = (record, userId) => {
 export default function (state = {}, action) {
     switch (action.type) {
         case GET_RECORDS:
-            return Object.assign({}, state, action.records)
+            return action.records;
         default:
             return state;
     }

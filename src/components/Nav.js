@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
+
 const Nav = (props) => {
     const { user, signOut } = props;
     return (
         <nav className="navbar navbar-toggleable-md bg-faded">
-            <li className="nav-item">
-                <Link to="/">Home <span>&nbsp;</span></Link>
+            <li className="nav-ite navbar-brand mb-0 h1">
+                <Link to="/">GCPD villain detection Home <span>&nbsp;</span></Link>
             </li>
 
             {user && user.username ?
@@ -16,7 +18,9 @@ const Nav = (props) => {
                             signOut(props.route.history)
                         }}>Signout</button>
                     </li>
-                    <li>Welcome {user.username} </li>
+                    <li className="nav-item ">
+                        <Link to="/Results">Results</Link>
+                    </li>
                 </div>
                 :
                 <div>

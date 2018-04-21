@@ -44,9 +44,11 @@ class UploadPhoto extends Component {
         return (
             <div>
                 <div className='card-body'>
-                    <label>Upload an image</label>
+                {!this.props.user.id ? <p> Login to view past results</p> : null}
+                    <h1>Upload an image to check the GCBD villain database</h1>
                     <form onSubmit={this.handleSubmit} encType="multipart/form-data">
-                        <input onChange={this.handleFile} type="file" />
+                        <input className='form-control' onChange={this.handleFile} type="file" />
+                        <br />
                         <button>Submit</button>
                     </form>
                 </div>
@@ -55,7 +57,11 @@ class UploadPhoto extends Component {
     }
 }
 
-
+const mapStateToProps = ({ user }) => {
+    return {
+        user
+    }
+}
 const mapDispatchToProps = (dispatch) => {
     return {
         uploadPhotoToServer: (payload, userId) => {

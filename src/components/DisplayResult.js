@@ -9,7 +9,14 @@ const DisplayResult = (props) => {
             {matchInfo.closest_match ?
                 <div>
                     <h1>Results</h1>
-                    <p>{matchInfo.closest_match}</p>
+                    <div className="card" style={{width: "18rem"}}>
+                        <img className="card-img-top" style={{width: "18rem"}} src={matchInfo.location} />
+                        <div className="card-body">
+                            <h5 className="card-title">Closest Match = {matchInfo.closest_match}</h5>
+                            <p className="card-text">Percentage = {matchInfo.percent_match}</p>
+
+                        </div>
+                    </div>
                     {props.photo.status ?
                         <p>{props.photo.status}</p>
                         :

@@ -10,11 +10,8 @@ router.post('/:userId', (req, res, next) => {
     res.send(200);
 })
 
-router.get('/:userid', (req, res) => {
-    console.log(req.params.userid)
-})
-
 router.get('/:userId', (req, res, next) => {
+    console.log('getttting')
     MatchInfo.findAll({
         where: {
             userId: req.params.userId

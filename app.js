@@ -38,7 +38,7 @@ app.use('/api', require('./server/api'));
 
 
 app.listen(process.env.PORT || 3000, () => {
-    db.sync({ force: true })
+    db.sync()
         .then(() => {
             console.log('listening and synced')
         }).catch(console.log)
