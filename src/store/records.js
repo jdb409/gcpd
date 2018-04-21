@@ -1,0 +1,44 @@
+import axios from 'axios';
+
+const GET_RECORDS = "GET_RECORDS";
+
+const getRecords = (records) => {
+    return {
+        type: GET_RECORDS,
+        records
+    }
+}
+
+
+export const getRecordsFromServer = (id) => {
+    return (dispatch) => {
+        axios.get(`/api/matchinfo/${id}`)
+            .then(res => res.data)
+            .then(records => {
+                dispatch(getRecords(records))
+            })
+    }
+}
+
+export const postRecord = (record, userId) => {
+    record.userId = userId;
+    console.log('postRecord', userId);
+    return () => {
+        axios.post(`/api/matchinfo/1`, record)
+            .then(res => res.data)
+            .then(() => {
+                console.log('hello');
+                getRecordsFromServer(userId)
+            })
+    }
+}
+
+export default function (state = {}, action) {
+    switch (action.type) {
+        case GET_RECORDS:
+            return Object.assign({}, state, action.records)
+        default:
+            return state;
+    }
+
+}

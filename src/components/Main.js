@@ -18,7 +18,7 @@ class Main extends Component {
         return (
             <div>
                 <Route render={(route) => <Nav user={user} signOut={signOut} route={route} />} />
-                <UploadPhoto />
+                <UploadPhoto user = {user} />
                 <DisplayResult photo={photo} />
                 <Route exact path='/signup' render={(route) => <SignUp route={route} userSignup={userSignup} />} />
                 <Route exact path='/login' render={(route) => <SignUp route={route} login={login} />} />

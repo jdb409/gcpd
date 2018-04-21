@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { uploadPhotoToServer } from '../store/photo';
 import { getPhotoData } from '../store/photoData';
 
+
 class UploadPhoto extends Component {
     constructor() {
         super();
@@ -22,7 +23,8 @@ class UploadPhoto extends Component {
             image_contents: this.state.dataUri
         };
         this.props.getPhotoData(this.state.dataUri);
-        this.props.uploadPhotoToServer(payload);
+        console.log(this.props.user)
+        this.props.uploadPhotoToServer(payload, this.props.user.id || null);
     }
 
     handleFile(e) {
@@ -56,8 +58,8 @@ class UploadPhoto extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        uploadPhotoToServer: (payload) => {
-            dispatch(uploadPhotoToServer(payload));
+        uploadPhotoToServer: (payload, userId) => {
+            dispatch(uploadPhotoToServer(payload, userId));
         },
         getPhotoData: (data) => {
             dispatch(getPhotoData(data));

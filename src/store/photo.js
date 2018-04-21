@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {postRecord} from './records';
+import user from './user';
 
 // Action types
 
@@ -15,12 +17,14 @@ const uploadPhoto = (matchInfo) => {
 
 //Thunk
 
-export const uploadPhotoToServer = (photo) => {
+export const uploadPhotoToServer = (photo, userId) => {
     return (dispatch) => {
-        
         axios.post('https://www.headlightlabs.com/api/gcpd_lookup', photo)
             .then(res => res.data)
             .then(matchInfo => {
+                if (userId) {
+                    dispatch(postRecord(matchInfo, userId));
+                }
                 dispatch(uploadPhoto(matchInfo));
             })
     }
@@ -29,7 +33,7 @@ export const uploadPhotoToServer = (photo) => {
 
 export const reportGCPD = (photo) => {
     return (dispatch) => {
-        
+
         axios.post('https://www.headlightlabs.com/api/gcpd_report', photo)
             .then(res => res.data)
             .then(status => {

@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const GET_USER = 'GET_USER';
 
+
 const getUser = (user) => {
     return {
         type: GET_USER,
