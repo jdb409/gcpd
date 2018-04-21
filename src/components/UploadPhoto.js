@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { uploadPhotoToServer } from '../store/photo';
+import { getPhotoData } from '../store/photoData';
 
 class UploadPhoto extends Component {
     constructor() {
@@ -13,26 +15,15 @@ class UploadPhoto extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
-        // let promise = new Promise((resolve) => {
-        //     this.setState({
-        //         photo: this.state.dataUri
-        //     });
-        //     resolve(this.state);
-        // })
         let payload = {
             api_key: 'ZcWnM_2Gs8s2xWFB-p-hhw',
             image_contents: this.state.dataUri
         };
-        
-        axios.post('https://www.headlightlabs.com/api/gcpd_lookup', payload)
-        .then(res => res.data)
-        .then(info => {
-            console.log(info);
-        })
-        console.log(this.state);
-    }   
+        this.props.getPhotoData(this.state.dataUri);
+        this.props.uploadPhotoToServer(payload);
+    }
 
     handleFile(e) {
         const reader = new FileReader();
@@ -43,11 +34,11 @@ class UploadPhoto extends Component {
                 dataUri: upload.target.result
             });
         }
+
         reader.readAsDataURL(file);
     }
 
     render() {
-
         return (
             <div>
                 <div className='card-body'>
@@ -62,4 +53,16 @@ class UploadPhoto extends Component {
     }
 }
 
-export default UploadPhoto;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        uploadPhotoToServer: (payload) => {
+            dispatch(uploadPhotoToServer(payload));
+        },
+        getPhotoData: (data) => {
+            dispatch(getPhotoData(data));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(UploadPhoto);
